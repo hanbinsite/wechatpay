@@ -6,17 +6,18 @@ use think\Model;
 
 class Wechat extends Model
 {
-    private static $appid  = "wxf48932a6ba0bacf8";
-    private static $secret = "0649f37cb8979caee5149190a4605e5c";
-    private static $mch_id = "1500978561";
-    private static $body   = "龟兔吧";
-    private static $fee    = "0.01";
-    private static $order  = "";
-    private static $ip     = "120.26.9.106";
-    private static $openid = "";
-    private static $key    = "bf5d85364d17331817393cabf0542071";
-    private static $notify_url = "";
+    private static $appid  = "xxxx";  //微信小程序appid
+    private static $secret = "xxxxxx";  //微信小程序secret
+    private static $mch_id = "xxx";  //商户号
+    private static $body   = "龟兔吧";   //支付说明
+    private static $fee    = "0.01";   //金额 0.00
+    private static $order  = "";   //订单号
+    private static $ip     = "ip地址";
+    private static $openid = ""; //用户openid
+    private static $key    = "";  //支付平台key
+    private static $notify_url = "";   //接收微信异步通知地址
 
+    //获得微信openid
     public static function codegetopenid($code="")
     {
         if ($code=="")
@@ -36,6 +37,7 @@ class Wechat extends Model
         //$this->ajaxReturn(array("info"=>array("code"=>1, "messages"=>$json_obj)));
         return $json_obj["openid"];
     }
+    //获得微信unionid
     public static function codegetunionid($code="")
     {
         if ($code=="")
@@ -58,12 +60,13 @@ class Wechat extends Model
     //微信支付开始
     public static function getprepay_id($openid="",$ordernum="",$body="",$fee="",$type=1)
     {
+        // openid  小程序openid      ordernum 订单号    
         if ($openid==""  || $ordernum=="" || $body=="" || $fee=="")
         {
             return 0;
         }
-        $url1 = "https://guituba.xiangchengnetwork.cn/api/wechat/publicc/getresultpayshop";
-        $url2 = "https://guituba.xiangchengnetwork.cn/api/wechat/publicc/getresultpayacti";
+        $url1 = "https://xxx.xxxx.cn/api/wechat/publicc/getresultpayshop";   //微信异步接收支付地址  下一行等同，选一即可
+        $url2 = "https://xxx.xxxx.cn/api/wechat/publicc/getresultpayacti";
         if ($type==1)
         {
             self::$notify_url = $url1;
