@@ -7,18 +7,18 @@ use think\Model;
 
 class Wechatrefund extends Model
 {
-    private static $appid  = "wx74a0aa18c6303353";
-    private static $mch_id = "1497418362";
-    private static $body   = "鲜游舟山拼团过期退款";
-    private static $fee    = "0.01";
-    private static $order  = "";
-    private static $ip     = "120.26.9.106";
-    private static $openid = "";
-    private static $key    = "9xxzKAlloXhKhHZMGSp674iphLoFGgF8";
-    private static $url    = "http://xianyouzhoushan.xiangchengnetwork.com/api/task/receiverefund";
-    private static $sslcert= "cert/apiclient_cert.pem";
-    private static $sslkey = "cert/apiclient_key.pem";
-    private static $posturl= "https://api.mch.weixin.qq.com/secapi/pay/refund";
+    private static $appid  = "微信小程序appid";
+    private static $mch_id = "微信商户号";
+    private static $body   = "退款原因";
+    private static $fee    = "退款金额，两位小数";
+    private static $order  = "订单号";
+    private static $ip     = "IP地址";
+    private static $openid = "用户openid";
+    private static $key    = "9xxzKAlloXhKhHZMGSp674iphLoFGgF8";//微信支付key，商户平台申请
+    private static $url    = "http://xxx.xxx.com/api/task/receiverefund"; //接收微信退款接收回调通知地址
+    private static $sslcert= "cert/apiclient_cert.pem";//微信支付证书地址
+    private static $sslkey = "cert/apiclient_key.pem";//微信支付证书地址
+    private static $posturl= "https://api.mch.weixin.qq.com/secapi/pay/refund"; //固定不变
     private static $transaction_id = "";
     private static $refund_id = "";
 
@@ -38,8 +38,8 @@ class Wechatrefund extends Model
         $openid = Db::table("xyzx_members")->where("id",$info['members_members_id'])->value("openid");
         self::$openid = $openid;
         //self::$body   = "";
-        self::$fee    = floatval($info['money']*100);
-        self::$order  = $info['paynumber'];
+        self::$fee    = floatval($info['money']*100);//实际金额以   0.00 * 100 为退款金额
+        self::$order  = $info['paynumber'];   //
         self::$refund_id    = $info['refundnumber'];
         self::$transaction_id = $info['transaction_id'];
         $return = self::pay();
